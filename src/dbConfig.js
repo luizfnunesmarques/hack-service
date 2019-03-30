@@ -1,11 +1,11 @@
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-// const devStringConnection = 'mongodb://127.0.0.1:27017/dazn';
+const devStringConnection = 'mongodb://ramonprata:daznhack1@ds017165.mlab.com:17165/daznhack';
 
-// mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
-// mongoose.connect(devStringConnection, { useMongoClient: true });
+mongoose.connect(devStringConnection, { useNewUrlParser: true });
 
-// const db = mongoose.connection;
+const db = mongoose.connection;
 
-// module.exports = { db };
+module.exports = { db };

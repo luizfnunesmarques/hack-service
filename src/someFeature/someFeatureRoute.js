@@ -13,8 +13,18 @@ class SomeFeatureRoute {
     } catch (error) {}
   }
 
+  async postMessage(req, res) {
+    try {
+      const response = await SomeFeatureController.postMessage();
+      res.json(response);
+    } catch (error) {
+      throw new Error('deu ruim');
+    }
+  }
+
   routes() {
     this.router.get('/', this.someRoute);
+    this.router.post('/', this.postMessage);
   }
 }
 
