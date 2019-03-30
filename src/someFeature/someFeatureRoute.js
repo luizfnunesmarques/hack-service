@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const SomeFeatureController = require('./someFeatureController');
+const axios = require('axios');
+
 
 class SomeFeatureRoute {
   constructor() {
@@ -15,11 +17,13 @@ class SomeFeatureRoute {
 
   async postMessage(req, res) {
     try {
-      const response = await SomeFeatureController.postMessage(req.body.message);
+      const response = await SomeFeatureController.postMessage();
+      console.log(response)
+      await axios.post('http://localhost:8080/update', response);
       res.json(response);
     } catch (error) {
-      console.log('errror :', errror);
-      throw new Error('deu ruim route');
+      console.log(error)
+      throw new Error('deu ruim');
     }
   }
 
