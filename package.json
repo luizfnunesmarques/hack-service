@@ -1,0 +1,36 @@
+{
+  "name": "DAZN",
+  "version": "1.0.0",
+  "description": "DAZN Real time data",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=local nodemon index",
+    "test": "cross-env NODE_ENV=local jest",
+    "start": "node ./index"
+  },
+  "keywords": [],
+  "author": "nome-da-equipe",
+  "license": "",
+  "dependencies": {
+    "async": "2.6.0",
+    "axios": "^0.18.0",
+    "bcrypt": "1.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.5",
+    "dockerode": "2.5.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.2",
+    "helmet": "^3.15.1",
+    "morgan": "^1.9.1",
+    "request": "2.83.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.16.0",
+    "coveralls": "^3.0.0",
+    "cross-env": "^5.2.0",
+    "git-branch": "^1.0.0",
+    "jest": "^23.6.0",
+    "jest-mock-express": "^0.1.1"
+  }
+}
