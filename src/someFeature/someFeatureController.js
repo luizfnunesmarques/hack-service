@@ -1,3 +1,4 @@
+const { instanciaIO } = require('../appConfig');
 const Messages = require('./someFeatureModel');
 class SomeFeatureController {
   async getSomeData() {
@@ -7,12 +8,14 @@ class SomeFeatureController {
       });
     } catch (error) {}
   }
-  async postMessage() {
+  async postMessage(message) {
     try {
-      const created = await Messages.create({ message: 'test' });
+      const created = await Messages.create({ message });
+      instanciaIO.emit('message', created);
       return created;
     } catch (error) {
-      throw new Error('deu ruim');
+      console.log('error :', error);
+      // throw new Error('deu ruim controller');
     }
   }
 }

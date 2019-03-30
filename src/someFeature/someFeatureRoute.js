@@ -8,7 +8,7 @@ class SomeFeatureRoute {
   }
   async someRoute(req, res) {
     try {
-      const response = await SomeFeatureController.getSomeData();
+      const response = await SomeFeatureController.getSomeData(req.body);
       res.json(response);
     } catch (error) {}
   }
@@ -18,7 +18,8 @@ class SomeFeatureRoute {
       const response = await SomeFeatureController.postMessage();
       res.json(response);
     } catch (error) {
-      throw new Error('deu ruim');
+      console.log('errror :', errror);
+      throw new Error('deu ruim route');
     }
   }
 
