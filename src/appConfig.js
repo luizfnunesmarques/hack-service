@@ -10,8 +10,26 @@ const cors = require('cors');
 
 const { SomeFeatureRoute } = require('./someFeature');
 const app = express();
-var http = require('http').Server(app);
-var instanciaIO = require('socket.io')(http);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+io.sockets.on('connection', function(socket, username) {
+  socket.join('data_feed');
+
+  const event = { heatmap: [{ timestamp: Date.now(), position: { x: 1, y: 2 } }] };
+
+  // When the client connects, they send a message
+  socket.emit('message', msg => console.log('msg :', msg));
+
+  // Get some of the data that has happened (maybe not all data ... just until last couple minutes)
+  socket.on('#get_data', player => {
+    console.log('get data on ', player);
+    const test_data = Object.assign({ player }, event);
+    socket.emit('get_data', test_data);
+    return test_data;
+  });
+});
+
 // const io = require('socket.io')(80);
 app.use(bodyParser.json());
 app.use(
@@ -40,20 +58,11 @@ app.use(helmet());
 app.use(morgan('combined'));
 
 app.get('/healthcheck/', async (req, res) => {
-  instanciaIO.emit('connection');
+  io.emit('connection');
   res.json({
     mensage: 'Serviço gerenciador auth 0'
   });
 });
-
 app.use('/get-some-feature-data', SomeFeatureRoute.router);
 
-instanciaIO.on('connection', () => {
-  console.log('a user is connected');
-});
-
-instanciaIO.on('message', msg => {
-  console.log(JSON.stringify(msg));
-});
-
-module.exports = { app, instanciaIO };
+module.exports = { app, io };

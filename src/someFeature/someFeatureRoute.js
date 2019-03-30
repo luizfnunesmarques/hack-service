@@ -15,7 +15,7 @@ class SomeFeatureRoute {
 
   async postMessage(req, res) {
     try {
-      const response = await SomeFeatureController.postMessage();
+      const response = await SomeFeatureController.postMessage(req.body.message);
       res.json(response);
     } catch (error) {
       console.log('errror :', errror);
