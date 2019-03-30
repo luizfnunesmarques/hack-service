@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const devStringConnection = 'mongodb://ramonprata:daznhack1@ds017165.mlab.com:17165/daznhack';
+const devStringConnection = `mongodb://${process.env.MLAB_USER}:${
+  process.env.MLAB_PASSWORD
+}@ds017165.mlab.com:17165/daznhack`;
 
 mongoose.Promise = global.Promise;
 
