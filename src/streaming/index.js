@@ -19,8 +19,8 @@ const server = http.createServer( (request, response) => {
     })
   } else {
     fs.readFile('./index.html', 'utf-8', (error, content) => {
-      res.writeHead(200, {"Content-Type": "text/html"});
-      res.end(content);
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.end(content);
     });
   }
 });
