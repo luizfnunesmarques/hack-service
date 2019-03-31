@@ -9,7 +9,9 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 
-const { EventRoute } = require('./event');
+const { SomeFeatureRoute } = require('./someFeature');
+const { EventRoute } = require('./events');
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -43,6 +45,8 @@ app.get('/healthcheck/', async (req, res) => {
     mensage: 'Serviço gerenciador auth 0'
   });
 });
+app.use('/get-some-feature-data', SomeFeatureRoute.router);
+app.use('/events', EventRoute.router);
 
 const server = require('http').createServer(app);
 const io = socketIO(server);
