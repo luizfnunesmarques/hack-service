@@ -20,8 +20,8 @@ const eventController =  {
   },
   async postEvent(event) {
     try {
-      const created = await Events.create(event);
-      return created;
+      const newEvent = await Events.create(event);
+      return newEvent;
     } catch (error) {
       console.log('error :', error);
       throw new Error('Error during event creation');

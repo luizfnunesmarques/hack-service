@@ -24,7 +24,9 @@ class EventRoute {
 
   async postEvent(req, res) {
     try {
-      const response = await eventController.postEvent(req.body);      
+      const response = await eventController.postEvent(req.body);
+      const io = req.app.get('io');
+      io.to('data_feed').emit('message', response);
       res.json(response);
     } catch (error) {
       console.log(error)
