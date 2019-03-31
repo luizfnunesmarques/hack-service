@@ -1,9 +1,7 @@
 const express = require('express');
+require('dotenv').config();
 const socketIO = require('socket.io');
 
-if (process.env.NODE_ENV === 'local') {
-  require('dotenv').config();
-}
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
