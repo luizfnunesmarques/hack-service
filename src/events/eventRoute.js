@@ -1,23 +1,30 @@
 const { Router } = require('express');
-const EventController = require('./EventController');
+const eventController = require('./eventController');
 const axios = require('axios');
-
 
 class EventRoute {
   constructor() {
     this.router = Router();
     this.routes();
   }
-  async someRoute(req, res) {
+
+  async teamEvents(req, res) {
     try {
-      const response = await EventController.getEvents(req.body);
+      const response = await eventController.getTeamEvents(req.query.team, req.query.type);
+      res.json(response);
+    } catch (error) {}
+  }
+
+  async playerEvents(req, res) {
+    try {
+      const response = await eventController.getPlayerEvents(req.query.player, req.query.type);
       res.json(response);
     } catch (error) {}
   }
 
   async postEvent(req, res) {
     try {
-      const response = await EventController.postEvent(req.body);
+      const response = await eventController.postEvent(req.body);
       const io = req.app.get('io');
       io.to('data_feed').emit('message', response);
       res.json(response);
@@ -28,7 +35,8 @@ class EventRoute {
   }
 
   routes() {
-    this.router.get('/', this.someRoute);
+    this.router.get('/team', this.teamEvents);
+    this.router.get('/player', this.playerEvents);
     this.router.post('/', this.postEvent);
   }
 }
