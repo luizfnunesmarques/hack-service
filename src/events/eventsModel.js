@@ -3,16 +3,21 @@ const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
 const EventSchema = new Schema({
-  type: String, // [GOAL, FAULT, PASS, SHOT, DEFENSE, STEAL, MISSED_PASS, BALL_DOMAIN ]
-  player1: String,
-  player2: String,
+  type: {
+    type: String,
+    enum: ['GOAL', 'GOAL_ATTEMPT', 'FOUL', 'KEY_PASS', 'PASS', 'INTERCEPT', 'BALL_POSSESSION', 'ASSIST', 'CORNER_KICK', 'CROSS_ATTACK', 'COUNTER_ATTACK', 'DRIBBLE' ]
+  },
+  player: String,
   team: String,
-  misc: String,
   timestamp: Number,
+  increment: {
+    type: Number,
+    default: 0
+  }
 });
 
 const Events = mongoose.model( 'Events', EventSchema );
 const getTeamEvents = async ( team, type ) => Events.count({ $and: [ { team }, { type } ] });
-const getPlayerEvents = async ( player, type ) => Events.count({ $and: [ { player1: player }, { type } ] } );
+const getPlayerEvents = async ( player, type ) => Events.count({ $and: [ { player }, { type } ] } );
 
 module.exports = { Events, getTeamEvents, getPlayerEvents };
